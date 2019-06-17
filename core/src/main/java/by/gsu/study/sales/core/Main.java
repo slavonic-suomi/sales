@@ -45,4 +45,5 @@ public class Main {
 
         System.out.println(saleRepository.findAll());
     }
+
 }
