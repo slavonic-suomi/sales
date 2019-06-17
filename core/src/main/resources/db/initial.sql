@@ -29,3 +29,20 @@ CREATE TABLE `sale` (
 ALTER TABLE `sale`
 ADD COLUMN `date` timestamp NOT NULL;
 
+-- changeset vpispanen:initial-5
+ALTER TABLE `sale`
+  ADD COLUMN `user_id` INT NULL;
+
+-- changeset vpispanen:initial-6
+insert into user(email) values ('admin@admin.com');
+update sale set sale.user_id = (
+  select id from user where email = 'admin@admin.com'
+);
+
+-- changeset vpispanen:initial-7
+alter table sale
+  modify COLUMN `user_id` INT NOT NULL;
+
+
+
+

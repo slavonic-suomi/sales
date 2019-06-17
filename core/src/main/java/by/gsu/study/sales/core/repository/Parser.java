@@ -11,6 +11,15 @@ public interface Parser<E extends IEntity> {
     E parseRow(ResultSet resultSet, int rowIndex);
 
     @SneakyThrows(java.sql.SQLException.class)
+    default E parseSingleRow(ResultSet resultSet) {
+        if (resultSet.next()) {
+            return parseRow(resultSet, 1);
+        }
+
+        return null;
+    }
+
+    @SneakyThrows(java.sql.SQLException.class)
     default List<E> parseList(ResultSet resultSet) {
         int index = 0;
         List<E> result = new ArrayList<>();

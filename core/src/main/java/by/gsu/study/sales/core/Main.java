@@ -1,30 +1,48 @@
 package by.gsu.study.sales.core;
 
 import by.gsu.study.sales.core.context.LiquibaseManager;
+import by.gsu.study.sales.core.entity.Product;
+import by.gsu.study.sales.core.entity.Sale;
 import by.gsu.study.sales.core.entity.User;
+import by.gsu.study.sales.core.repository.impl.ProductRepository;
+import by.gsu.study.sales.core.repository.impl.SaleRepository;
 import by.gsu.study.sales.core.repository.impl.UserRepository;
-import lombok.SneakyThrows;
+import by.gsu.study.sales.core.repository.impl.parser.ProductParser;
+import by.gsu.study.sales.core.repository.impl.parser.SaleParser;
+import by.gsu.study.sales.core.repository.impl.parser.UserParser;
 
-import java.util.List;
+import java.util.Date;
 
 public class Main {
 
-    @SneakyThrows
     public static void main(String[] args) {
         LiquibaseManager.initDatabase();
 
-        User user = new User(null, "test36@mail.com");
-        UserRepository repository = new UserRepository();
-        repository.save(user);
+        ProductRepository productRepository =
+                new ProductRepository(
+                new ProductParser()
+        );
+        UserRepository userIRepository = new UserRepository(
+                new UserParser()
+        );
+        SaleRepository saleRepository =
+                new SaleRepository(
+                        new SaleParser(productRepository, userIRepository)
+                );
 
 
-//        repository.deleteById(11);
+        Product product = productRepository.findById(1);
 
-//        User user1 = repository.findById(8);
-//        user1.setEmail("newEmail2");
-//        repository.save(user1);
+        User user = userIRepository
+                .findAll()
+                .stream()
+                .findFirst()
+                .orElse(null);
 
-        List<User> all = repository.findAll();
-        all.forEach(System.out::println);
+        Sale sale = new Sale(null, product, user, new Date());
+
+        saleRepository.save(sale);
+
+        System.out.println(saleRepository.findAll());
     }
 }

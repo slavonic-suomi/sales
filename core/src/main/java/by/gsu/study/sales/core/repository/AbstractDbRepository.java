@@ -65,7 +65,7 @@ public abstract class AbstractDbRepository<E extends IEntity>
         try (var statement = connection.prepareStatement(selectById)) {
             statement.setInt(1, id);
             try (var resultSet = statement.executeQuery()) {
-                return parser.parseRow(resultSet, 1);
+                return parser.parseSingleRow(resultSet);
             }
         }
     }

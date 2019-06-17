@@ -12,5 +12,6 @@ import java.util.Date;
 public class Sale implements IEntity {
     private Integer id;
     private Product product;
+    private User user;
     private Date date;
 }
