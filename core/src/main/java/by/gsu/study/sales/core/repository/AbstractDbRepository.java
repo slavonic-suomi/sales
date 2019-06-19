@@ -69,4 +69,17 @@ public abstract class AbstractDbRepository<E extends IEntity>
             }
         }
     }
+
+    @Override
+    @SneakyThrows(java.sql.SQLException.class)
+    public int count() {
+        Connection connection = ConnectionManager.getConnection();
+        String count = "select count(*) from " + getTableName();
+        try (var statement = connection.prepareStatement(count)) {
+            try (var resultSet = statement.executeQuery()) {
+                resultSet.next();
+                return resultSet.getInt(1);
+            }
+        }
+    }
 }

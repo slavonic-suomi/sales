@@ -24,4 +24,9 @@ public class CommonFindAllMenuItem<E extends IEntity>
                 .forEach(System.out::println);
         return 0;
     }
+
+    @Override
+    public int getOrder() {
+        return 0;
+    }
 }

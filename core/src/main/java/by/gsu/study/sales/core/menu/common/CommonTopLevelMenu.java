@@ -2,6 +2,7 @@ package by.gsu.study.sales.core.menu.common;
 
 import by.gsu.study.sales.core.entity.IEntity;
 import by.gsu.study.sales.core.menu.IMenuItem;
+import by.gsu.study.sales.core.menu.MenuHelper;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Comparator;
@@ -14,8 +15,6 @@ public class CommonTopLevelMenu<E extends IEntity>
 
     private final List<IMenuItem<E>> items;
     private final String title;
-
-    private static final Scanner scanner = new Scanner(System.in);
 
     @Override
     public String getTitle() {
@@ -39,7 +38,7 @@ public class CommonTopLevelMenu<E extends IEntity>
                 counter++;
             }
 
-            Integer index = getInt();
+            Integer index = MenuHelper.getIndex(items.size() + 1);
             int result = items.get(index - 1).execute();
             if (result == -1) {
                 break;
@@ -47,11 +46,5 @@ public class CommonTopLevelMenu<E extends IEntity>
         }
 
         return 0;
-    }
-
-
-    private Integer getInt() {
-        String line = scanner.nextLine();
-        return Integer.parseInt(line);
     }
 }

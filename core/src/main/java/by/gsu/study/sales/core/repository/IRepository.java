@@ -12,4 +12,6 @@ public interface IRepository<E extends IEntity> {
     List<E> findAll();
 
     E findById(Integer id);
+
+    int count();
 }

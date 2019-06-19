@@ -13,6 +13,7 @@ import by.gsu.study.sales.core.repository.impl.parser.UserParser;
 
 import java.util.Date;
 
+@Deprecated
 public class Main {
 
     public static void main(String[] args) {

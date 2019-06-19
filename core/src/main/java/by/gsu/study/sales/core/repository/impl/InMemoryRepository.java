@@ -61,4 +61,9 @@ public class InMemoryRepository<E extends IEntity>
                 .findFirst()
                 .orElse(null);
     }
+
+    @Override
+    public int count() {
+        return list.size();
+    }
 }
