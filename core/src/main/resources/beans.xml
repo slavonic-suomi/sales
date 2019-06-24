@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean   id="productParser"
+            class="by.gsu.study.sales.core.repository.impl.parser.ProductParser"/>
+
+    <bean id="productRepository"
+          class="by.gsu.study.sales.core.repository.impl.ProductRepository">
+
+        <constructor-arg
+                type="by.gsu.study.sales.core.repository.Parser"
+                ref="productParser"/>
+    </bean>
+
+</beans>
