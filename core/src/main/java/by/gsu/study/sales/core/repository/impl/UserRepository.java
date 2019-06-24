@@ -6,9 +6,11 @@ import by.gsu.study.sales.core.context.ConnectionManager;
 import by.gsu.study.sales.core.repository.IRepository;
 import by.gsu.study.sales.core.repository.Parser;
 import lombok.SneakyThrows;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 
+@Component
 public class UserRepository
         extends AbstractDbRepository<User>
         implements IRepository<User> {

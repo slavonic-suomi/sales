@@ -6,13 +6,17 @@ import by.gsu.study.sales.core.context.ConnectionManager;
 import by.gsu.study.sales.core.repository.IRepository;
 import by.gsu.study.sales.core.repository.Parser;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 
+@Component
 public class ProductRepository
         extends AbstractDbRepository<Product>
         implements IRepository<Product> {
 
+    @Autowired
     public ProductRepository(Parser<Product> parser) {
         super(parser);
     }

@@ -3,9 +3,11 @@ package by.gsu.study.sales.core.repository.impl.parser;
 import by.gsu.study.sales.core.entity.User;
 import by.gsu.study.sales.core.repository.Parser;
 import lombok.SneakyThrows;
+import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 
+@Component
 public class UserParser implements Parser<User> {
 
     @Override
