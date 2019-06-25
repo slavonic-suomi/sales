@@ -16,10 +16,15 @@ import by.gsu.study.sales.core.repository.impl.UserRepository;
 import by.gsu.study.sales.core.repository.impl.parser.ProductParser;
 import by.gsu.study.sales.core.repository.impl.parser.SaleParser;
 import by.gsu.study.sales.core.repository.impl.parser.UserParser;
+import lombok.SneakyThrows;
+
+import java.lang.reflect.Field;
 
 import static java.util.Arrays.asList;
 
 public class LordOfTheMains {
+
+    @SneakyThrows
     public static void main(String[] args) {
         LiquibaseManager.initDatabase();
 
@@ -34,7 +39,14 @@ public class LordOfTheMains {
 
         IFactory<Product> productFactory = new ReflectionFactory<>(Product.class);
         IFactory<User> userFactory = new ReflectionFactory<>(User.class);
-        IFactory<Sale> saleFactory = new SaleFactory(userRepository, productRepository);
+
+        //strange code 'cause of field injection
+        SaleFactory saleFactory = new SaleFactory();
+        saleFactory.setProductRepository(productRepository);
+
+        Field userRepositoryField = SaleFactory.class.getDeclaredField("userRepository");
+        userRepositoryField.setAccessible(true);
+        userRepositoryField.set(saleFactory, userRepository);
 
 
         MenuBuilder menuBuilder = new MenuBuilder();

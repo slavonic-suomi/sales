@@ -7,15 +7,17 @@ import by.gsu.study.sales.core.repository.IRepository;
 import by.gsu.study.sales.core.repository.Parser;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.sql.ResultSet;
 
 @RequiredArgsConstructor
+@Component
 public class SaleParser implements Parser<Sale> {
 
     private final IRepository<Product> productRepository;
-    private final IRepository<User> userIRepository;
+    private final IRepository<User> userRepository;
 
     @Override
     @SneakyThrows(java.sql.SQLException.class)
@@ -26,7 +28,7 @@ public class SaleParser implements Parser<Sale> {
         Date date     = resultSet.getDate("date");
 
         Product product = productRepository.findById(productId);
-        User user = userIRepository.findById(userId);
+        User user = userRepository.findById(userId);
 
         return new Sale(id, product, user, date);
     }

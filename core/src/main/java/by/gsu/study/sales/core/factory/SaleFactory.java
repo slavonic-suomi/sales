@@ -13,19 +13,17 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 @Component
-@RequiredArgsConstructor
 public class SaleFactory implements IFactory<Sale> {
 
-    private final IRepository<User> userRepository;
-    private final IRepository<Product> productRepository;
+    @Autowired //for field injection example
+    private IRepository<User> userRepository;
 
-//    @Autowired
-//    private IMenuItem<User> someItem;
-//
-//    @Autowired(required = false)
-//    public void setSomeItem(IMenuItem<User> someItem) {
-//        this.someItem = someItem;
-//    }
+    private IRepository<Product> productRepository;
+
+    @Autowired //for setter injection example
+    public void setProductRepository(IRepository<Product> productRepository) {
+        this.productRepository = productRepository;
+    }
 
     @Override
     public Sale create() {

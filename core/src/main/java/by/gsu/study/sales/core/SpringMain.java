@@ -1,6 +1,7 @@
 package by.gsu.study.sales.core;
 
 import by.gsu.study.sales.core.context.CommonConfig;
+import by.gsu.study.sales.core.entity.Product;
 import by.gsu.study.sales.core.repository.IRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -12,8 +13,10 @@ public class SpringMain {
                         CommonConfig.class
                 );
 
-        IRepository repository =
+        @SuppressWarnings("unchecked")
+        IRepository<Product> repository =
                 context.getBean("productRepository", IRepository.class);
+
         repository.findAll().forEach(System.out::println);
     }
 }

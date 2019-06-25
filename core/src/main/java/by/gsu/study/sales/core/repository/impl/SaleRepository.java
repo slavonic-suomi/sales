@@ -5,12 +5,16 @@ import by.gsu.study.sales.core.entity.Sale;
 import by.gsu.study.sales.core.repository.AbstractDbRepository;
 import by.gsu.study.sales.core.repository.Parser;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 
+@Component
 public class SaleRepository
     extends AbstractDbRepository<Sale> {
 
+    @Autowired
     public SaleRepository(Parser<Sale> parser) {
         super(parser);
     }

@@ -5,6 +5,8 @@ import by.gsu.study.sales.core.repository.IRepository;
 import by.gsu.study.sales.core.repository.Parser;
 import by.gsu.study.sales.core.repository.impl.ProductRepository;
 import by.gsu.study.sales.core.repository.impl.parser.ProductParser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan("by.gsu.study.sales.core")
 public class CommonConfig {
+
 
 //    @Bean
 //    public IRepository<Product> productRepository(
