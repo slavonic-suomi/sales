@@ -17,8 +17,8 @@ public class UserRepository
         implements IRepository<User> {
 
     @Autowired
-    public UserRepository(Parser<User> parser) {
-        super(parser);
+    public UserRepository(Parser<User> parser, ConnectionManager manager) {
+        super(parser, manager);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class UserRepository
     @SneakyThrows(java.sql.SQLException.class)
     protected void create(User entity) {
         Connection connection
-                = ConnectionManager.getConnection();
+                = manager.getConnection();
 
         String insert = "insert into user (email) values (?)";
         try (var statement = connection.prepareStatement(insert)) {
@@ -41,7 +41,7 @@ public class UserRepository
     @SneakyThrows(java.sql.SQLException.class)
     protected void update(User entity) {
         Connection connection
-                = ConnectionManager.getConnection();
+                = manager.getConnection();
 
         String insert = "update user set email = ? where id = ?";
         try (var statement = connection.prepareStatement(insert)) {

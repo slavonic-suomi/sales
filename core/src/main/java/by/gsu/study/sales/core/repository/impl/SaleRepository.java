@@ -15,8 +15,8 @@ public class SaleRepository
     extends AbstractDbRepository<Sale> {
 
     @Autowired
-    public SaleRepository(Parser<Sale> parser) {
-        super(parser);
+    public SaleRepository(Parser<Sale> parser, ConnectionManager manager) {
+        super(parser, manager);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class SaleRepository
     @SneakyThrows({java.sql.SQLException.class})
     protected void create(Sale entity) {
         Connection connection
-                = ConnectionManager.getConnection();
+                = manager.getConnection();
 
         String insert = "insert into sale (product_id, user_id, date) values (?, ?, ?)";
         try (var statement = connection.prepareStatement(insert)) {
@@ -43,7 +43,7 @@ public class SaleRepository
     @SneakyThrows({java.sql.SQLException.class})
     protected void update(Sale entity) {
         Connection connection
-                = ConnectionManager.getConnection();
+                = manager.getConnection();
 
         String insert = "update sale set product_id = ?, user_id = ?, date = ? where id = ?";
         try (var statement = connection.prepareStatement(insert)) {

@@ -23,12 +23,6 @@ public class CommonTopLevelMenu<E extends IEntity>
 
     @Override
     public int execute() {
-//        items.sort(new Comparator<IMenuItem>() {
-////            @Override
-////            public int compare(IMenuItem o1, IMenuItem o2) {
-////                return Integer.compare(o1.getOrder(), o2.getOrder());
-////            }
-////        });
         items.sort(Comparator.comparingInt(IMenuItem::getOrder));
 
         while (true) {

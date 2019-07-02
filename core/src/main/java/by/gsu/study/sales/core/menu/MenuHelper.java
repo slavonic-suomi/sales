@@ -10,6 +10,7 @@ public class MenuHelper {
         return getIndex(Integer.MAX_VALUE);
     }
 
+    /** get int from 1 to limit from System.in */
     public static int getIndex(int limit) {
 
         while (true) {

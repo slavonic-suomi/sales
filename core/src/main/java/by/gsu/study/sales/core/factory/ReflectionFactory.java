@@ -2,6 +2,7 @@ package by.gsu.study.sales.core.factory;
 
 import by.gsu.study.sales.core.entity.IEntity;
 import lombok.SneakyThrows;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

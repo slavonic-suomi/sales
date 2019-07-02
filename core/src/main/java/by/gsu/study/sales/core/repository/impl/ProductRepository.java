@@ -17,8 +17,10 @@ public class ProductRepository
         implements IRepository<Product> {
 
     @Autowired
-    public ProductRepository(Parser<Product> parser) {
-        super(parser);
+    public ProductRepository(
+            Parser<Product> parser,
+            ConnectionManager manager) {
+        super(parser, manager);
     }
 
     @Override
@@ -30,7 +32,7 @@ public class ProductRepository
     @SneakyThrows(java.sql.SQLException.class)
     protected void create(Product entity) {
         Connection connection
-                = ConnectionManager.getConnection();
+                = manager.getConnection();
 
         String insert = "insert into product (name) values (?)";
         try (var statement = connection.prepareStatement(insert)) {
@@ -43,7 +45,7 @@ public class ProductRepository
     @SneakyThrows(java.sql.SQLException.class)
     protected void update(Product entity) {
         Connection connection
-                = ConnectionManager.getConnection();
+                = manager.getConnection();
 
         String insert = "update product set name = ? where id = ?";
         try (var statement = connection.prepareStatement(insert)) {

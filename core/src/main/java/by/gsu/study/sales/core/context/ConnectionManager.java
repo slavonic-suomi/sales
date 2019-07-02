@@ -1,16 +1,35 @@
 package by.gsu.study.sales.core.context;
 
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+@Component
 public class ConnectionManager {
 
-    private static Connection connection;
+    private volatile Connection connection;
+
+    /*
+        all values will be populated by spring from "application.properties"
+        because of "@PropertySource(..." annotation in CommonConfig
+     */
+    @Value("${jdbc.driver}")
+    private String driverName;
+
+    @Value("${jdbc.url}")
+    private String url;
+
+    @Value("${jdbc.user}")
+    private String user;
+
+    @Value("${jdbc.password}")
+    private String password;
 
     @SneakyThrows
-    public static Connection getConnection() {
+    public Connection getConnection() {
         if (connection == null) {
            connection = init();
         }
@@ -18,7 +37,7 @@ public class ConnectionManager {
     }
 
     @SneakyThrows //use to avoid liquibase connection corruption
-    static void reset() {
+    void reset() {
         if (connection != null) {
             connection.close();
         }
@@ -26,12 +45,12 @@ public class ConnectionManager {
     }
 
     @SneakyThrows
-    private static Connection init() {
-        Class.forName("com.mysql.cj.jdbc.Driver");
+    private Connection init() {
+        Class.forName(driverName);
 
         return DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/sales",
-                "root",
-                "root");
+                url,
+                user,
+                password);
     }
 }

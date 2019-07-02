@@ -14,6 +14,8 @@ public abstract class AbstractDbRepository<E extends IEntity>
 
     private final Parser<E> parser;
 
+    protected final ConnectionManager manager;
+
     protected abstract String getTableName();
     protected abstract void create(E entity);
     protected abstract void update(E entity);
@@ -31,7 +33,7 @@ public abstract class AbstractDbRepository<E extends IEntity>
     @SneakyThrows(java.sql.SQLException.class)
     public void deleteById(Integer id) {
         Connection connection
-                = ConnectionManager.getConnection();
+                = manager.getConnection();
         String tableName = getTableName();
         String delete = "delete from " + tableName +" where id = ?";
 
@@ -45,7 +47,7 @@ public abstract class AbstractDbRepository<E extends IEntity>
     @SneakyThrows(java.sql.SQLException.class)
     public List<E> findAll() {
         Connection connection =
-                ConnectionManager.getConnection();
+                manager.getConnection();
 
         String selectAll = "select * from " + getTableName();
         try (var statement = connection.prepareStatement(selectAll)) {
@@ -59,7 +61,7 @@ public abstract class AbstractDbRepository<E extends IEntity>
     @Override
     @SneakyThrows(java.sql.SQLException.class)
     public E findById(Integer id) {
-        Connection connection = ConnectionManager.getConnection();
+        Connection connection = manager.getConnection();
         String selectById = "select * from " + getTableName() + " where id = ?";
 
         try (var statement = connection.prepareStatement(selectById)) {
@@ -73,7 +75,7 @@ public abstract class AbstractDbRepository<E extends IEntity>
     @Override
     @SneakyThrows(java.sql.SQLException.class)
     public int count() {
-        Connection connection = ConnectionManager.getConnection();
+        Connection connection = manager.getConnection();
         String count = "select count(*) from " + getTableName();
         try (var statement = connection.prepareStatement(count)) {
             try (var resultSet = statement.executeQuery()) {
