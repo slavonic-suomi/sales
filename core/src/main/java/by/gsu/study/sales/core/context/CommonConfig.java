@@ -1,5 +1,6 @@
 package by.gsu.study.sales.core.context;
 
+import by.gsu.study.sales.core.context.qualifiers.TopLevelMenu;
 import by.gsu.study.sales.core.entity.Product;
 import by.gsu.study.sales.core.entity.Sale;
 import by.gsu.study.sales.core.entity.User;
@@ -13,6 +14,7 @@ import by.gsu.study.sales.core.repository.Parser;
 import by.gsu.study.sales.core.repository.impl.ProductRepository;
 import by.gsu.study.sales.core.repository.impl.parser.ProductParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -50,19 +52,20 @@ public class CommonConfig {
     }
 
 
-    @Bean
-    public CommonTopLevelMenu<Product> productMenu(
-            MenuBuilder builder,
-            IRepository<Product> repository,
-            IFactory<Product> factory
-    ) {
-        return builder.getCommonMenu(
-                "product management",
-                repository,
-                factory);
-    }
+//    @Bean
+//    public CommonTopLevelMenu<Product> productMenu(
+//            MenuBuilder builder,
+//            IRepository<Product> repository,
+//            IFactory<Product> factory
+//    ) {
+//        return builder.getCommonMenu(
+//                "product management",
+//                repository,
+//                factory);
+//    }
 
     @Bean
+    @TopLevelMenu
     public CommonTopLevelMenu<User> userMenu(
             MenuBuilder builder,
             IRepository<User> repository,
@@ -75,6 +78,7 @@ public class CommonConfig {
     }
 
     @Bean
+    @TopLevelMenu
     public CommonTopLevelMenu<Sale> saleMenu(
             MenuBuilder builder,
             IRepository<Sale> repository,
@@ -89,7 +93,7 @@ public class CommonConfig {
     @Bean
     public CommonTopLevelMenu topLevelMenu(
             MenuBuilder builder,
-            List<IMenuItem<?>> menu) {
+            @TopLevelMenu List<IMenuItem<?>> menu) {
         return builder.combine(menu);
     }
 }
