@@ -43,6 +43,9 @@ update sale set sale.user_id = (
 alter table sale
   modify COLUMN `user_id` INT NOT NULL;
 
-
+-- changeset vpispanen:initial-8
+alter table sale
+  add foreign key Sale_User_FK (`user_id`)
+  references `user` (`id`);
 
 

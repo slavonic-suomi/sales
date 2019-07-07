@@ -12,7 +12,7 @@ public class ProductParser implements Parser<Product> {
 
     @Override
     @SneakyThrows(java.sql.SQLException.class)
-    public Product parseRow(ResultSet resultSet, int rowIndex) {
+    public Product mapRow(ResultSet resultSet, int rowIndex) {
         int id      = resultSet.getInt("id");
         String name = resultSet.getString(2);
 

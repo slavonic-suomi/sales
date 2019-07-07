@@ -2,13 +2,6 @@ package by.gsu.study.sales.core.menu;
 
 import by.gsu.study.sales.core.entity.IEntity;
 
-public interface IMenuItem<E extends IEntity> {
+public interface IMenuItem<E extends IEntity> extends RawMenuItem {
 
-    String getTitle();
-
-    int execute();
-
-    default int getOrder() {
-        return 0;
-    }
 }

@@ -1,26 +1,23 @@
 package by.gsu.study.sales.core.context;
 
-import by.gsu.study.sales.core.context.qualifiers.TopLevelMenu;
+import by.gsu.study.sales.core.context.qualifiers.TopMenu;
+import by.gsu.study.sales.core.entity.IEntity;
 import by.gsu.study.sales.core.entity.Product;
-import by.gsu.study.sales.core.entity.Sale;
 import by.gsu.study.sales.core.entity.User;
 import by.gsu.study.sales.core.factory.IFactory;
 import by.gsu.study.sales.core.factory.ReflectionFactory;
 import by.gsu.study.sales.core.menu.IMenuItem;
-import by.gsu.study.sales.core.menu.MenuBuilder;
-import by.gsu.study.sales.core.menu.common.CommonTopLevelMenu;
-import by.gsu.study.sales.core.repository.IRepository;
-import by.gsu.study.sales.core.repository.Parser;
-import by.gsu.study.sales.core.repository.impl.ProductRepository;
-import by.gsu.study.sales.core.repository.impl.parser.ProductParser;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationContext;
+import by.gsu.study.sales.core.menu.RawMenuItem;
+import by.gsu.study.sales.core.menu.common.TopLevelMenu;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
+import javax.annotation.PreDestroy;
+import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
@@ -28,18 +25,8 @@ import java.util.List;
 @PropertySource("classpath:application.properties")
 public class CommonConfig {
 
-
-//    @Bean
-//    public IRepository<Product> productRepository(
-//            Parser<Product> parser
-//    ) {
-//        return new ProductRepository(parser);
-//    }
-//
-//    @Bean
-//    public Parser<Product> productParser() {
-//        return new ProductParser();
-//    }
+    private static final Logger log =
+            LoggerFactory.getLogger(CommonConfig.class);
 
     @Bean
     public IFactory<User> userFactory() {
@@ -51,49 +38,17 @@ public class CommonConfig {
         return new ReflectionFactory<>(Product.class);
     }
 
-
-//    @Bean
-//    public CommonTopLevelMenu<Product> productMenu(
-//            MenuBuilder builder,
-//            IRepository<Product> repository,
-//            IFactory<Product> factory
-//    ) {
-//        return builder.getCommonMenu(
-//                "product management",
-//                repository,
-//                factory);
-//    }
-
     @Bean
-    @TopLevelMenu
-    public CommonTopLevelMenu<User> userMenu(
-            MenuBuilder builder,
-            IRepository<User> repository,
-            IFactory<User> factory
-    ) {
-        return builder.getCommonMenu(
-                "user management",
-                repository,
-                factory);
+    public RawMenuItem rootMenu(
+            @TopMenu List<IMenuItem<? extends IEntity>> items) {
+        List<IMenuItem<?>> elements = new ArrayList<>(items);
+        elements.add(() -> "Exit");
+
+        return new TopLevelMenu(elements, "top menu");
     }
 
-    @Bean
-    @TopLevelMenu
-    public CommonTopLevelMenu<Sale> saleMenu(
-            MenuBuilder builder,
-            IRepository<Sale> repository,
-            IFactory<Sale> factory
-    ) {
-        return builder.getCommonMenu(
-                "sale management",
-                repository,
-                factory);
-    }
-
-    @Bean
-    public CommonTopLevelMenu topLevelMenu(
-            MenuBuilder builder,
-            @TopLevelMenu List<IMenuItem<?>> menu) {
-        return builder.combine(menu);
+    @PreDestroy
+    public void destroy() {
+        log.error("BYE!");
     }
 }

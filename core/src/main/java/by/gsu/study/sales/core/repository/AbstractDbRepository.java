@@ -1,12 +1,15 @@
 package by.gsu.study.sales.core.repository;
 
 import by.gsu.study.sales.core.entity.IEntity;
-import by.gsu.study.sales.core.context.ConnectionManager;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import java.sql.Connection;
-import java.util.List;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.*;
 
 @RequiredArgsConstructor
 public abstract class AbstractDbRepository<E extends IEntity>
@@ -14,7 +17,9 @@ public abstract class AbstractDbRepository<E extends IEntity>
 
     private final Parser<E> parser;
 
-    protected final ConnectionManager manager;
+    /** keep both of templates for showing examples */
+    protected final JdbcTemplate jdbcTemplate;
+    protected final NamedParameterJdbcTemplate namedJdbcTemplate;
 
     protected abstract String getTableName();
     protected abstract void create(E entity);
@@ -30,58 +35,32 @@ public abstract class AbstractDbRepository<E extends IEntity>
     }
 
     @Override
-    @SneakyThrows(java.sql.SQLException.class)
     public void deleteById(Integer id) {
-        Connection connection
-                = manager.getConnection();
         String tableName = getTableName();
         String delete = "delete from " + tableName +" where id = ?";
 
-        try (var statement = connection.prepareStatement(delete)) {
-            statement.setInt(1, id);
-            statement.executeUpdate();
-        }
+        jdbcTemplate.update(delete, new Object[]{id}, new int[]{Types.INTEGER});
     }
 
     @Override
-    @SneakyThrows(java.sql.SQLException.class)
     public List<E> findAll() {
-        Connection connection =
-                manager.getConnection();
-
         String selectAll = "select * from " + getTableName();
-        try (var statement = connection.prepareStatement(selectAll)) {
-            try (var resultSet = statement.executeQuery()) {
-                return parser.parseList(resultSet);
-            }
-        }
-
+        return jdbcTemplate.query(selectAll, parser);
     }
 
     @Override
-    @SneakyThrows(java.sql.SQLException.class)
     public E findById(Integer id) {
-        Connection connection = manager.getConnection();
-        String selectById = "select * from " + getTableName() + " where id = ?";
+        String selectById = "select * from " + getTableName() + " where id = :id";
 
-        try (var statement = connection.prepareStatement(selectById)) {
-            statement.setInt(1, id);
-            try (var resultSet = statement.executeQuery()) {
-                return parser.parseSingleRow(resultSet);
-            }
-        }
+        Map<String, Integer> params = Collections.singletonMap("id", id);
+
+        return namedJdbcTemplate.queryForObject(selectById, params, parser);
     }
 
     @Override
-    @SneakyThrows(java.sql.SQLException.class)
     public int count() {
-        Connection connection = manager.getConnection();
         String count = "select count(*) from " + getTableName();
-        try (var statement = connection.prepareStatement(count)) {
-            try (var resultSet = statement.executeQuery()) {
-                resultSet.next();
-                return resultSet.getInt(1);
-            }
-        }
+        Integer result = jdbcTemplate.queryForObject(count, (rs, rowNum) -> rs.getInt(1));
+        return Optional.ofNullable(result).orElse(0);
     }
 }

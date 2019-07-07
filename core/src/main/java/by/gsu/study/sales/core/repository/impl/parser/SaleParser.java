@@ -21,7 +21,7 @@ public class SaleParser implements Parser<Sale> {
 
     @Override
     @SneakyThrows(java.sql.SQLException.class)
-    public Sale parseRow(ResultSet resultSet, int rowIndex) {
+    public Sale mapRow(ResultSet resultSet, int rowIndex) {
         int id        = resultSet.getInt("id");
         int productId = resultSet.getInt("product_id");
         int userId    = resultSet.getInt("user_id");

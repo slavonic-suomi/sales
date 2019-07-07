@@ -10,5 +10,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER})
 @Qualifier("topLevelMenuQualifier")
-public @interface TopLevelMenu {
+public @interface TopMenu {
 }

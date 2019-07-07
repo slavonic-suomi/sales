@@ -1,24 +1,9 @@
 package by.gsu.study.sales.core;
 
 import by.gsu.study.sales.core.context.CommonConfig;
-import by.gsu.study.sales.core.context.LiquibaseManager;
-import by.gsu.study.sales.core.entity.Product;
-import by.gsu.study.sales.core.entity.User;
-import by.gsu.study.sales.core.menu.IMenuItem;
-import by.gsu.study.sales.core.menu.common.CommonTopLevelMenu;
-import by.gsu.study.sales.core.repository.IRepository;
-import by.gsu.study.sales.core.repository.impl.parser.ProductParser;
-import org.springframework.context.ApplicationContext;
+import by.gsu.study.sales.core.menu.RawMenuItem;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
 
 public class SpringMain {
     public static void main(String[] args) {
@@ -27,20 +12,20 @@ public class SpringMain {
                         CommonConfig.class
                 );
 
-        //enable @PreDestroy processing
-//        context.registerShutdownHook();
+//        enable @PreDestroy processing
+        context.registerShutdownHook();
 //
-//        CommonTopLevelMenu topLevelMenu =
-//                context.getBean("topLevelMenu", CommonTopLevelMenu.class);
-//
-//        topLevelMenu.execute();
+        RawMenuItem topLevelMenu =
+                context.getBean("rootMenu", RawMenuItem.class);
+
+        topLevelMenu.execute();
 
 //        IMenuItem productMenu
 //                = context.getBean("productTopLevelMenu", IMenuItem.class);
 //
 //        productMenu.execute();
 
-        JdbcTemplate template = context.getBean(JdbcTemplate.class);
+      /*  JdbcTemplate template = context.getBean(JdbcTemplate.class);
 
         ProductParser parser = context.getBean(ProductParser.class);
 
@@ -57,18 +42,18 @@ public class SpringMain {
 
         template.update(
                 "insert into Product (name) values (?)",
-                new Object[] {"newproduct"}
+                new Object[] {"newproduct2"}
 
                 );
 
 //        holder.getKey()
 
         List<Product> products = template
-                .query("select * from Product", parser::parseRow);
+                .query("select * from Product", parser::mapRow);
 
         System.out.println(products);
 
 
-
+*/
     }
 }

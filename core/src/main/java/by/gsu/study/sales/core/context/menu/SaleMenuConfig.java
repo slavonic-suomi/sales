@@ -1,7 +1,7 @@
 package by.gsu.study.sales.core.context.menu;
 
 import by.gsu.study.sales.core.context.qualifiers.TopMenu;
-import by.gsu.study.sales.core.entity.Product;
+import by.gsu.study.sales.core.entity.Sale;
 import by.gsu.study.sales.core.factory.IFactory;
 import by.gsu.study.sales.core.menu.IMenuItem;
 import by.gsu.study.sales.core.menu.common.*;
@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 @Configuration
-public class ProductMenuConfig {
+public class SaleMenuConfig {
 
     /**
      * top level menu bean for single entity,
@@ -20,55 +20,55 @@ public class ProductMenuConfig {
      * */
     @Bean
     @TopMenu
-    public IMenuItem<Product> productTopLevelMenu(
-            List<IMenuItem<Product>> items
+    public IMenuItem<Sale> saleTopLevelMenu(
+            List<IMenuItem<Sale>> items
     ) {
         return new CommonTopLevelMenu<>(
                 items,
-                "product management"
+                "sale management"
         );
     }
 
     /** sub items */
 
     @Bean
-    public IMenuItem<Product> productExitMenuItem() {
+    public IMenuItem<Sale> saleExitMenuItem() {
         return () -> "Exit";
     }
 
     @Bean
-    public IMenuItem<Product> productAddMenuItem(
-            IFactory<Product> factory,
-            IRepository<Product> repository
+    public IMenuItem<Sale> saleAddMenuItem(
+            IFactory<Sale> factory,
+            IRepository<Sale> repository
     ) {
         return new CommonAddMenuItem<>(repository, factory);
     }
 
     @Bean
-    public IMenuItem<Product> productUpdateMenuItem(
-            IFactory<Product> factory,
-            IRepository<Product> repository
+    public IMenuItem<Sale> saleUpdateMenuItem(
+            IFactory<Sale> factory,
+            IRepository<Sale> repository
     ) {
         return new CommonUpdateMenuItem<>(repository, factory);
     }
 
     @Bean
-    public IMenuItem<Product> productDeleteMenuItem(
-            IRepository<Product> repository
+    public IMenuItem<Sale> saleDeleteMenuItem(
+            IRepository<Sale> repository
     ) {
         return new CommonDeleteMenuItem<>(repository);
     }
 
     @Bean
-    public IMenuItem<Product> productCountMenuItem(
-            IRepository<Product> repository
+    public IMenuItem<Sale> saleCountMenuItem(
+            IRepository<Sale> repository
     ) {
         return new CommonCountMenuItem<>(repository);
     }
 
     @Bean
-    public IMenuItem<Product> productFindAllMenuItem(
-            IRepository<Product> repository
+    public IMenuItem<Sale> saleFindAllMenuItem(
+            IRepository<Sale> repository
     ) {
         return new CommonFindAllMenuItem<>(repository);
     }

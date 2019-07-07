@@ -13,4 +13,5 @@
     </root>
 
     <logger name="org.springframework" level="WARN"/>
+    <!--<logger name="liquibase" level="TRACE"/>-->
 </configuration>
