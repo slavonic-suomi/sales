@@ -48,4 +48,11 @@ alter table sale
   add foreign key Sale_User_FK (`user_id`)
   references `user` (`id`);
 
+-- changeset vpispanen:initial-9
+CREATE TABLE `category` (
+                         `id` INT NOT NULL AUTO_INCREMENT,
+                         `name` VARCHAR(45) NOT NULL,
+                         PRIMARY KEY (`id`),
+                         UNIQUE INDEX `category_name_UNIQUE` (`name` ASC)
+);
 

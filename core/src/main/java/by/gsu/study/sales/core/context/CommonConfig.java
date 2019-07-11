@@ -1,6 +1,7 @@
 package by.gsu.study.sales.core.context;
 
 import by.gsu.study.sales.core.context.qualifiers.TopMenu;
+import by.gsu.study.sales.core.entity.Category;
 import by.gsu.study.sales.core.entity.IEntity;
 import by.gsu.study.sales.core.entity.Product;
 import by.gsu.study.sales.core.entity.User;
@@ -36,6 +37,11 @@ public class CommonConfig {
     @Bean
     public IFactory<Product> productFactory() {
         return new ReflectionFactory<>(Product.class);
+    }
+
+    @Bean
+    public IFactory<Category> categoryFactory() {
+        return new ReflectionFactory<>(Category.class);
     }
 
     @Bean
