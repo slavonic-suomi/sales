@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -25,6 +26,7 @@ public class CommonAddMenuItem<E extends IEntity>
     }
 
     @Override
+    @Transactional
     public int execute() {
         E entity = factory.create();
 

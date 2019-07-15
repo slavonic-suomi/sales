@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class TestSpringController {
 
     @Autowired
-    protected IRepository<User> userIRepository;
+    protected IRepository<User> userRepository;
 
     @RequestMapping("/some_url")
     public void doSomething(ModelAndView mnv) {

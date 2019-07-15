@@ -5,7 +5,9 @@ import by.gsu.study.sales.core.entity.Sale;
 import by.gsu.study.sales.core.factory.IFactory;
 import by.gsu.study.sales.core.menu.IMenuItem;
 import by.gsu.study.sales.core.menu.common.*;
+import by.gsu.study.sales.core.menu.common.sale.SaleFindAllMenuItem;
 import by.gsu.study.sales.core.repository.IRepository;
+import by.gsu.study.sales.core.repository.impl.ISaleRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -39,7 +41,7 @@ public class SaleMenuConfig {
     @Bean
     public IMenuItem<Sale> saleAddMenuItem(
             IFactory<Sale> factory,
-            IRepository<Sale> repository
+            ISaleRepository repository
     ) {
         return new CommonAddMenuItem<>(repository, factory);
     }
@@ -47,29 +49,29 @@ public class SaleMenuConfig {
     @Bean
     public IMenuItem<Sale> saleUpdateMenuItem(
             IFactory<Sale> factory,
-            IRepository<Sale> repository
+            ISaleRepository repository
     ) {
         return new CommonUpdateMenuItem<>(repository, factory);
     }
 
     @Bean
     public IMenuItem<Sale> saleDeleteMenuItem(
-            IRepository<Sale> repository
+            ISaleRepository repository
     ) {
         return new CommonDeleteMenuItem<>(repository);
     }
 
     @Bean
     public IMenuItem<Sale> saleCountMenuItem(
-            IRepository<Sale> repository
+            ISaleRepository repository
     ) {
         return new CommonCountMenuItem<>(repository);
     }
 
     @Bean
     public IMenuItem<Sale> saleFindAllMenuItem(
-            IRepository<Sale> repository
+            ISaleRepository repository
     ) {
-        return new CommonFindAllMenuItem<>(repository);
+        return new SaleFindAllMenuItem(repository);
     }
 }

@@ -5,6 +5,7 @@ import by.gsu.study.sales.core.menu.IMenuItem;
 import by.gsu.study.sales.core.menu.MenuHelper;
 import by.gsu.study.sales.core.repository.IRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 public class CommonDeleteMenuItem<E extends IEntity> implements IMenuItem<E> {
@@ -17,6 +18,7 @@ public class CommonDeleteMenuItem<E extends IEntity> implements IMenuItem<E> {
     }
 
     @Override
+    @Transactional
     public int execute() {
         System.out.println("Input record id: ");
         int id = MenuHelper.getIndex();

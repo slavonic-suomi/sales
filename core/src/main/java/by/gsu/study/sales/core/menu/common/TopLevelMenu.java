@@ -2,16 +2,19 @@ package by.gsu.study.sales.core.menu.common;
 
 import by.gsu.study.sales.core.menu.MenuHelper;
 import by.gsu.study.sales.core.menu.RawMenuItem;
-import lombok.RequiredArgsConstructor;
 
 import java.util.Comparator;
 import java.util.List;
 
-@RequiredArgsConstructor
 public class TopLevelMenu implements RawMenuItem {
 
     private final List<? extends RawMenuItem> items;
     private final String title;
+
+    public TopLevelMenu(List<? extends RawMenuItem> items, String title) {
+        this.items = items;
+        this.title = title;
+    }
 
     @Override
     public String getTitle() {

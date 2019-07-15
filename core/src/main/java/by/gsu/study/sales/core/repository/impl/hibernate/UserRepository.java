@@ -1,14 +1,14 @@
 package by.gsu.study.sales.core.repository.impl.hibernate;
 
-import by.gsu.study.sales.core.entity.Product;
 import by.gsu.study.sales.core.entity.User;
 import by.gsu.study.sales.core.repository.IRepository;
+import by.gsu.study.sales.core.repository.impl.IUserRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository("userHibernateRepository")
+@Repository
 public class UserRepository
         extends AbstractHibernateRepository<User>
-        implements IRepository<User> {
+        implements IUserRepository {
 
     public UserRepository() {
         super(User.class);

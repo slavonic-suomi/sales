@@ -5,12 +5,14 @@ import by.gsu.study.sales.core.entity.Product;
 import by.gsu.study.sales.core.menu.IMenuItem;
 import by.gsu.study.sales.core.repository.IRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
+@Transactional
 public class CommonFindAllMenuItem<E extends IEntity>
         implements IMenuItem<E> {
 
-    private final IRepository<E> repository;
+    protected final IRepository<E> repository;
 
     @Override
     public String getTitle() {

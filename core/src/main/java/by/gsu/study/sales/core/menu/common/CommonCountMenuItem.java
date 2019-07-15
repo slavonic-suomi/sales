@@ -4,6 +4,7 @@ import by.gsu.study.sales.core.entity.IEntity;
 import by.gsu.study.sales.core.menu.IMenuItem;
 import by.gsu.study.sales.core.repository.IRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 public class CommonCountMenuItem<E extends IEntity> implements IMenuItem<E> {
@@ -16,6 +17,7 @@ public class CommonCountMenuItem<E extends IEntity> implements IMenuItem<E> {
     }
 
     @Override
+    @Transactional
     public int execute() {
         int count = repository.count();
         System.out.println(count);

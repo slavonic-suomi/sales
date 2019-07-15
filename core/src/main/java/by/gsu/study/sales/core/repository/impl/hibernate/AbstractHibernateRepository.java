@@ -15,7 +15,7 @@ import java.util.List;
 public class AbstractHibernateRepository<E extends IEntity>
     implements IRepository<E> {
 
-    private final Class<E> entityClass;
+    protected final Class<E> entityClass;
 
     @PersistenceContext
     protected EntityManager em;
@@ -45,6 +45,7 @@ public class AbstractHibernateRepository<E extends IEntity>
 
     @Override
     public int count() {
-        return 0;
+        TypedQuery<Integer> query = em.createQuery("select count(e) from " + entityClass.getName() + " e", Integer.class);
+        return query.getSingleResult();
     }
 }

@@ -12,7 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "Sale")
+@Table(name = "sale")
 public class Sale implements IEntity {
 
     @Id
@@ -23,10 +23,11 @@ public class Sale implements IEntity {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
 }

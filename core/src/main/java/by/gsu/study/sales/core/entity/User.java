@@ -11,13 +11,14 @@ import javax.persistence.*;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "User")
+@Table(name = "user")
 public class User implements IEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(unique = true, nullable = false, length = 45)
     private String email;
 }
 

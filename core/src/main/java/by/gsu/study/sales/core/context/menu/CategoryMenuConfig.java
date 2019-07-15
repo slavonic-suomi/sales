@@ -5,7 +5,7 @@ import by.gsu.study.sales.core.entity.Category;
 import by.gsu.study.sales.core.factory.IFactory;
 import by.gsu.study.sales.core.menu.IMenuItem;
 import by.gsu.study.sales.core.menu.common.*;
-import by.gsu.study.sales.core.repository.IRepository;
+import by.gsu.study.sales.core.repository.impl.ICategoryRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -39,7 +39,7 @@ public class CategoryMenuConfig {
     @Bean
     public IMenuItem<Category> categoryAddMenuItem(
             IFactory<Category> factory,
-            IRepository<Category> repository
+            ICategoryRepository repository
     ) {
         return new CommonAddMenuItem<>(repository, factory);
     }
@@ -47,28 +47,28 @@ public class CategoryMenuConfig {
     @Bean
     public IMenuItem<Category> categoryUpdateMenuItem(
             IFactory<Category> factory,
-            IRepository<Category> repository
+            ICategoryRepository repository
     ) {
         return new CommonUpdateMenuItem<>(repository, factory);
     }
 
     @Bean
     public IMenuItem<Category> categoryDeleteMenuItem(
-            IRepository<Category> repository
+            ICategoryRepository repository
     ) {
         return new CommonDeleteMenuItem<>(repository);
     }
 
     @Bean
     public IMenuItem<Category> categoryCountMenuItem(
-            IRepository<Category> repository
+            ICategoryRepository repository
     ) {
         return new CommonCountMenuItem<>(repository);
     }
 
     @Bean
     public IMenuItem<Category> categoryFindAllMenuItem(
-            IRepository<Category> repository
+            ICategoryRepository repository
     ) {
         return new CommonFindAllMenuItem<>(repository);
     }

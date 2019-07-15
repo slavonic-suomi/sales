@@ -6,6 +6,7 @@ import by.gsu.study.sales.core.factory.IFactory;
 import by.gsu.study.sales.core.menu.IMenuItem;
 import by.gsu.study.sales.core.menu.common.*;
 import by.gsu.study.sales.core.repository.IRepository;
+import by.gsu.study.sales.core.repository.impl.IUserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -39,7 +40,7 @@ public class UserMenuConfig {
     @Bean
     public IMenuItem<User> userAddMenuItem(
             IFactory<User> factory,
-            IRepository<User> repository
+            IUserRepository repository
     ) {
         return new CommonAddMenuItem<>(repository, factory);
     }
@@ -47,28 +48,28 @@ public class UserMenuConfig {
     @Bean
     public IMenuItem<User> userUpdateMenuItem(
             IFactory<User> factory,
-            IRepository<User> repository
+            IUserRepository repository
     ) {
         return new CommonUpdateMenuItem<>(repository, factory);
     }
 
     @Bean
     public IMenuItem<User> userDeleteMenuItem(
-            IRepository<User> repository
+            IUserRepository repository
     ) {
         return new CommonDeleteMenuItem<>(repository);
     }
 
     @Bean
     public IMenuItem<User> userCountMenuItem(
-            IRepository<User> repository
+            IUserRepository repository
     ) {
         return new CommonCountMenuItem<>(repository);
     }
 
     @Bean
     public IMenuItem<User> userFindAllMenuItem(
-            IRepository<User> repository
+            IUserRepository repository
     ) {
         return new CommonFindAllMenuItem<>(repository);
     }

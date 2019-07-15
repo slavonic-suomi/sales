@@ -1,17 +1,16 @@
 package by.gsu.study.sales.core.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Data
 @ToString(exclude = "sales")
+@EqualsAndHashCode(exclude = "sales")
+
 @Entity
-@Table(name = "Product")
+@Table(name = "product")
 public class Product implements IEntity{
 
     public Product() {
@@ -26,7 +25,7 @@ public class Product implements IEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "name", unique = true, nullable = false)
+    @Column(name = "name", unique = true, nullable = false, length = 45)
     private String name;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
