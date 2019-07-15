@@ -4,6 +4,7 @@ import by.gsu.study.sales.core.entity.Sale;
 import by.gsu.study.sales.core.repository.AbstractDbRepository;
 import by.gsu.study.sales.core.repository.Parser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -13,6 +14,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 @Component
+@Primary
 public class SaleRepository
         extends AbstractDbRepository<Sale> {
 
