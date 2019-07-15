@@ -20,40 +20,5 @@ public class SpringMain {
 
         topLevelMenu.execute();
 
-//        IMenuItem productMenu
-//                = context.getBean("productTopLevelMenu", IMenuItem.class);
-//
-//        productMenu.execute();
-
-      /*  JdbcTemplate template = context.getBean(JdbcTemplate.class);
-
-        ProductParser parser = context.getBean(ProductParser.class);
-
-        template.update(
-                "update User set email = 'test@test'" +
-                        "where id = ?", new Object[] {18});
-
-        List<User> users = template.query("select * from User",
-                new BeanPropertyRowMapper<>(User.class));
-
-        System.out.println(users);
-
-        GeneratedKeyHolder holder = new GeneratedKeyHolder();
-
-        template.update(
-                "insert into Product (name) values (?)",
-                new Object[] {"newproduct2"}
-
-                );
-
-//        holder.getKey()
-
-        List<Product> products = template
-                .query("select * from Product", parser::mapRow);
-
-        System.out.println(products);
-
-
-*/
     }
 }

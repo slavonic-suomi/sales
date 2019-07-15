@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -31,7 +33,10 @@ public class SaleRepository
         String sql = "insert into sale (product_id, user_id, date) " +
                 " values (:product, :user, :date)";
 
-        namedJdbcTemplate.update(sql, getParams(entity));
+        KeyHolder holder = new GeneratedKeyHolder();
+
+        namedJdbcTemplate.update(sql, getParams(entity), holder);
+        entity.setId(holder.getKey().intValue());
 
     }
 

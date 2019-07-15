@@ -16,13 +16,22 @@ CREATE TABLE `product` (
   UNIQUE INDEX `product_name_UNIQUE` (`name` ASC)
 );
 
--- changeset vpispanen:initial-3
+-- changeset vpispanen:initial-3 dbms:mysql
 CREATE TABLE `sale` (
-   `id` INT NOT NULL AUTO_INCREMENT,
-   `product_id` INT NOT NULL ,
-   PRIMARY KEY (`id`),
-   FOREIGN KEY Sale_Product_FK (`product_id`)
-     REFERENCES `product`(`id`)
+                      `id` INT NOT NULL AUTO_INCREMENT,
+                      `product_id` INT NOT NULL ,
+                      PRIMARY KEY (`id`),
+                      FOREIGN KEY Sale_Product_FK (`product_id`)
+                        REFERENCES `product`(`id`)
+);
+
+-- changeset vpispanen:initial-3-1 dbms:h2
+CREATE TABLE `sale` (
+              `id` INT NOT NULL AUTO_INCREMENT,
+              `product_id` INT NOT NULL ,
+              PRIMARY KEY (`id`),
+              FOREIGN KEY  (`product_id`)
+                REFERENCES `product`(`id`)
 );
 
 -- changeset vpispanen:initial-4
@@ -43,10 +52,15 @@ update sale set sale.user_id = (
 alter table sale
   modify COLUMN `user_id` INT NOT NULL;
 
--- changeset vpispanen:initial-8
+-- changeset vpispanen:initial-8 dbms:mysql
 alter table sale
   add foreign key Sale_User_FK (`user_id`)
   references `user` (`id`);
+
+-- changeset vpispanen:initial-8-1 dbms:h2
+alter table sale
+  add foreign key (`user_id`)
+    references `user` (`id`);
 
 -- changeset vpispanen:initial-9
 CREATE TABLE `category` (

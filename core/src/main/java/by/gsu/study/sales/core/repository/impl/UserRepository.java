@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,7 +35,13 @@ public class UserRepository
     @Override
     protected void create(User entity) {
         String sql = "insert into user (email) values (:email)";
-        namedJdbcTemplate.update(sql, new BeanPropertySqlParameterSource(entity));
+        KeyHolder holder = new GeneratedKeyHolder();
+        namedJdbcTemplate.update(
+                sql,
+                new BeanPropertySqlParameterSource(entity),
+                holder
+        );
+        entity.setId(holder.getKey().intValue());
     }
 
     @Override
